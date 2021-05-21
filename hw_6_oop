@@ -31,9 +31,10 @@ class Student:
         return self.average_rating < other.average_rating
 
     def __str__(self):
-        res = f"Имя: {self.name} \nФамилия: {self.surname} \n" \
-              f"Средняя оценка за домашние задания: {self.average_rating} \n" \
-              f"Курсы в процессе изучения: {self.courses_in_progress} \n" \
+        res = f"Имя: {self.name}\n"\
+              f"Фамилия: {self.surname}\n"\
+              f"Средняя оценка за домашние задания: {self.average_rating}\n"\
+              f"Курсы в процессе изучения: {self.courses_in_progress}\n"\
               f"Завершенные курсы: {self.finished_courses}"
         return res
 
@@ -87,7 +88,7 @@ class Reviewer(Mentor):
   
 
     def __str__(self):
-        res = f"Имя: {self.name} \n " \
+        res = f"Имя: {self.name}\n"\
               f"Фамилия: {self.surname}"
         return res
 
@@ -114,31 +115,7 @@ second_reviewer = Reviewer("Алексей", "Дрозд")
 second_reviewer.courses_attached += ["GIT"]
 second_reviewer.courses_attached += ["Python"]
 
-first_student.rate_lesson(second_lecturer, "GIT", 9)
-first_student.rate_lesson(first_lecturer, "GIT", 8)
-first_student.rate_lesson(first_lecturer, "Python", 8)
-first_student.rate_lesson(first_lecturer, "Python", 9)
-second_student.rate_lesson(first_lecturer, "Python", 10)
-second_student.rate_lesson(first_lecturer, "Python", 10)
-
-second_reviewer.rate_hw(first_student, "Python", 10)
-second_reviewer.rate_hw(first_student, "GIT", 8)
-second_reviewer.rate_hw(first_student, "GIT", 10)
-first_reviewer.rate_hw(first_student, "Python", 10)
-first_reviewer.rate_hw(second_student, "Python", 7)
-first_reviewer.rate_hw(second_student, "Python", 7)
-first_reviewer.rate_hw(second_student, "Python", 8)
-
-print(f"{first_student}\n")
-print(f"{second_student}\n")
-print(f"{first_lecturer}\n")
-print(f"{second_lecturer}\n")
-print(f"{first_reviewer}\n")
-print(f"{second_reviewer}\n")
-
-print(second_student < first_student)
-print(second_lecturer < first_lecturer)
-
+#Задание 4.Полевые испытания
 student_list = [first_student, second_student]
 lecturer_list = [first_lecturer, second_lecturer]
 
@@ -162,8 +139,39 @@ def average_rating_lesson(lecturers, courses):
                 iterator += 1
     return round(sum_course_grade / iterator, 2)
 
+first_student.rate_lesson(second_lecturer, "GIT", 9)
+first_student.rate_lesson(second_lecturer, "GIT", 10)
+first_student.rate_lesson(first_lecturer, "GIT", 8)
+first_student.rate_lesson(first_lecturer, "GIT", 8)
+first_student.rate_lesson(first_lecturer, "Python", 9)
+second_student.rate_lesson(first_lecturer, "Python", 10)
+second_student.rate_lesson(first_lecturer, "Python", 10)
 
-print(average_rating_hw(student_list, "GIT"))
-print(average_rating_hw(student_list, "Python"))
-print(average_rating_lesson(lecturer_list, "Python"))
-print(average_rating_lesson(lecturer_list, "GIT"))
+second_reviewer.rate_hw(first_student, "Python", 10)
+second_reviewer.rate_hw(first_student, "GIT", 8)
+second_reviewer.rate_hw(first_student, "GIT", 10)
+first_reviewer.rate_hw(first_student, "Python", 10)
+first_reviewer.rate_hw(second_student, "Python", 7)
+first_reviewer.rate_hw(second_student, "Python", 7)
+first_reviewer.rate_hw(second_student, "Python", 8)
+
+print("Список студентов:")
+print(f"{first_student}\n")
+print(f"{second_student}\n")
+print("Список лекторов:")
+print(f"{first_lecturer}\n")
+print(f"{second_lecturer}\n")
+print("Список проверяющих:")
+print(f"{first_reviewer}\n")
+print(f"{second_reviewer}\n")
+
+#Сравнение лекторов по средней оценке за лекции и студентов по средней оценке за домашние задания:
+print(f"Средняя оценка за лекции у Филипова меньше, чем у Орлова {second_student < first_student}")
+print(f"Средняя оценка за дз у Никитина больше, чем у Кузнецова {second_lecturer < first_lecturer}\n")
+
+
+#Подсчет средней оценки за курсы по дз и за леции:
+print(f'Средняя оценка студентов за курс GIT:{average_rating_hw(student_list, "GIT")}')
+print(f'Средняя оценка студентов за курс Python:{average_rating_hw(student_list, "Python")}')
+print(f'Средняя оценка лекторов за курс Python:{average_rating_lesson(lecturer_list, "Python")}')
+print(f'Средняя оценка лекторов за курс GIT:{average_rating_lesson(lecturer_list, "GIT")}')
