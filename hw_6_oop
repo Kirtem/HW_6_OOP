@@ -22,7 +22,7 @@ class Student:
           for grad in list(lecturer.grades[key]):
             sum = sum + grad
             len += 1
-        lecturer.average_rating = sum / len
+        lecturer.average_rating = round(sum / len, 2)
 
     def __lt__(self, other):
         if not isinstance(other, Student):
@@ -84,7 +84,7 @@ class Reviewer(Mentor):
           for grad in list(student.grades[key]):
             sum = sum + grad
             len += 1
-        student.average_rating = sum / len
+        student.average_rating = round(sum / len, 2)
   
 
     def __str__(self):
@@ -166,12 +166,12 @@ print(f"{first_reviewer}\n")
 print(f"{second_reviewer}\n")
 
 #Сравнение лекторов по средней оценке за лекции и студентов по средней оценке за домашние задания:
-print(f"Средняя оценка за лекции у Филипова меньше, чем у Орлова {second_student < first_student}")
-print(f"Средняя оценка за дз у Никитина больше, чем у Кузнецова {second_lecturer < first_lecturer}\n")
+print(f"Средняя оценка за дз у Никитина больше, чем у Кузнецова {second_student < first_student}")
+print(f"Средняя оценка за лекции у Филипова меньше, чем у Орлова {second_lecturer < first_lecturer}\n")
 
 
 #Подсчет средней оценки за курсы по дз и за леции:
-print(f'Средняя оценка студентов за курс GIT:{average_rating_hw(student_list, "GIT")}')
-print(f'Средняя оценка студентов за курс Python:{average_rating_hw(student_list, "Python")}')
-print(f'Средняя оценка лекторов за курс Python:{average_rating_lesson(lecturer_list, "Python")}')
-print(f'Средняя оценка лекторов за курс GIT:{average_rating_lesson(lecturer_list, "GIT")}')
+print(f'Средняя оценка студентов за курс GIT: {average_rating_hw(student_list, "GIT")}')
+print(f'Средняя оценка студентов за курс Python: {average_rating_hw(student_list, "Python")}')
+print(f'Средняя оценка лекторов за курс Python: {average_rating_lesson(lecturer_list, "Python")}')
+print(f'Средняя оценка лекторов за курс GIT: {average_rating_lesson(lecturer_list, "GIT")}')
