@@ -56,7 +56,7 @@ class Lecturer(Mentor):
         if not isinstance(other, Lecturer):
             print("Нельзя сравнить")
             return
-        return self.average_rating > other.average_rating
+        return self.average_rating < other.average_rating
 
     def __str__(self):
         res = f"Имя: {self.name} \n" \
@@ -115,15 +115,16 @@ second_reviewer.courses_attached += ["GIT"]
 second_reviewer.courses_attached += ["Python"]
 
 first_student.rate_lesson(second_lecturer, "GIT", 9)
+first_student.rate_lesson(first_lecturer, "GIT", 8)
 first_student.rate_lesson(first_lecturer, "Python", 8)
 first_student.rate_lesson(first_lecturer, "Python", 9)
 second_student.rate_lesson(first_lecturer, "Python", 10)
-first_student.rate_lesson(first_lecturer, "GIT", 8)
+second_student.rate_lesson(first_lecturer, "Python", 10)
 
 second_reviewer.rate_hw(first_student, "Python", 10)
 second_reviewer.rate_hw(first_student, "GIT", 8)
 second_reviewer.rate_hw(first_student, "GIT", 10)
-first_reviewer.rate_hw(first_student, "Python", 5)
+first_reviewer.rate_hw(first_student, "Python", 10)
 first_reviewer.rate_hw(second_student, "Python", 7)
 first_reviewer.rate_hw(second_student, "Python", 7)
 first_reviewer.rate_hw(second_student, "Python", 8)
@@ -135,17 +136,13 @@ print(f"{second_lecturer}\n")
 print(f"{first_reviewer}\n")
 print(f"{second_reviewer}\n")
 
-print(first_lecturer.average_rating)
-print(first_student.grades)
-print(first_student.average_rating)
-print(second_student.average_rating)
-
 print(second_student < first_student)
 print(second_lecturer < first_lecturer)
 
+student_list = [first_student, second_student]
+lecturer_list = [first_lecturer, second_lecturer]
 
-print("alalalalallalalala")
-def average_grade_hw(students, courses):
+def average_rating_hw(students, courses):
     sum_course_grade = 0
     iterator = 0
     for student in students:
@@ -155,6 +152,18 @@ def average_grade_hw(students, courses):
                 iterator += 1
     return round(sum_course_grade / iterator, 2)
 
-student_list = [first_student, second_student]
+def average_rating_lesson(lecturers, courses):
+    sum_course_grade = 0
+    iterator = 0
+    for lecturer in lecturers:
+        for key, value in lecturer.grades.items():
+            if courses in key:
+                sum_course_grade += sum(value) / len(value)
+                iterator += 1
+    return round(sum_course_grade / iterator, 2)
 
-print(average_grade_hw(student_list, "GIT"))
+
+print(average_rating_hw(student_list, "GIT"))
+print(average_rating_hw(student_list, "Python"))
+print(average_rating_lesson(lecturer_list, "Python"))
+print(average_rating_lesson(lecturer_list, "GIT"))
